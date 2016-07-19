@@ -1,0 +1,28 @@
+{
+  "name": "hypermirror",
+  "version": "1.0.0",
+  "description": "mirror hypercore and hyperdrive feeds",
+  "main": "index.js",
+  "bin": {
+    "hypermirror": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "standard"
+  },
+  "author": "Joe Hand <joe@joeahand.com> (http://joeahand.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "electron-webrtc": "^0.2.7",
+    "hypercore": "^4.7.0",
+    "hyperdrive-archive-swarm": "^3.1.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joehand/hypermirror.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joehand/hypermirror/issues"
+  },
+  "homepage": "https://github.com/joehand/hypermirror#readme"
+}
