@@ -1,4 +1,3 @@
-var electronWebRTC = require('electron-webrtc')
 var hypercore = require('hypercore')
 var hyperdrive = require('hyperdrive')
 var swarm = require('hyperdrive-archive-swarm')
@@ -10,10 +9,9 @@ function mirror (link, opts, cb) {
   if (!cb) return mirror(link, {}, opts)
   if (!opts) opts = {}
 
-  var swarmOpts = {}
-  if (opts.webrtc) swarmOpts.wrtc = electronWebRTC({headless: true})
-
   var sw
+  var swarmOpts = {}
+  if (opts.webrtc) swarmOpts.wrtc = require('electron-webrtc')({headless: false})
 
   getFeed(cb)
 
@@ -42,6 +40,7 @@ function mirror (link, opts, cb) {
             return cb(null, feed)
           }
           sw.close(function () {
+            // could i keep swarm connected? will keep discovery time lower.
             feed.close(function () {
               getArchive(cb)
             })
