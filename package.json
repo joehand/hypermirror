@@ -12,6 +12,8 @@
   "author": "Joe Hand <joe@joeahand.com> (http://joeahand.com/)",
   "license": "ISC",
   "dependencies": {
+    "dat-js": "^3.2.0",
+    "debug": "^2.2.0",
     "electron-webrtc": "^0.2.7",
     "hypercore": "^4.7.0",
     "hyperdrive": "^7.3.0",
