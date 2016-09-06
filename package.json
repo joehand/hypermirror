@@ -10,7 +10,7 @@
     "test": "standard"
   },
   "author": "Joe Hand <joe@joeahand.com> (http://joeahand.com/)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "dat-js": "^3.3.0",
     "debug": "^2.2.0",
