@@ -5,7 +5,7 @@ Mirror hypercore & hyperdrive feeds.
 ### Install 
 
 ```
-npm install -g hypermirro
+npm install -g hypermirror
 ```
 
 ### Usage
