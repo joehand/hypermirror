@@ -16,7 +16,7 @@
     "debug": "^4.1.1",
     "hyperdiscovery": "^8.0.0",
     "hyperdrive": "^9.14.2",
-    "hyperdrive-http": "^4.3.4",
+    "hyperdrive-http": "^4.4.0",
     "minimist": "^1.2.0",
     "pump": "^3.0.0",
     "random-access-memory": "^3.1.1",
