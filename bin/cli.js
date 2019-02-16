@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 
 var minimist = require('minimist')
+var http = require('http')
+var hyperHttp = require('hyperdrive-http')
 var mirror = require('..')
 
 var argv = minimist(process.argv.slice(2), {
-  boolean: ['webrtc', 'persist'],
+  boolean: ['webrtc', 'sparse'],
   alias: {
-    persist: 'p'
+    webrtc: 'w'
   },
   default: {
     webrtc: false,
-    persist: false
+    sparse: true
   }
 })
 
@@ -31,21 +33,16 @@ if (argv.debug) {
 }
 var debug = require('debug')('hypermirror') // require this after setting process.env.DEBUG
 
-mirror(argv.link, argv, function (err, feed) {
+mirror(argv.link, argv, function (err, archive) {
   if (err) return console.error(err)
-  var isArchive = (feed.metadata)
-  if (isArchive) {
-    feed.open(function () {
-      feed.content.on('download-finished', function () {
-        debug('Done downloading content')
-      })
-    })
-  } else {
-    feed.on('download-finished', function () {
-      debug('Done downloading content')
-    })
-  }
+  archive.readFile('dat.json', 'utf8', (err, data) => {
+    if (err) return console.error(err)
+    debug('dat.json:', data)
+  })
+  console.log('mirroring archive', archive.key.toString('hex'))
 
-  debug('Type of feed: ' + (isArchive ? 'Hyperdrive' : 'Hypercore'))
-  console.log('mirroring feed', feed.key.toString('hex'))
+  var server = http.createServer().listen(() => {
+    console.log(`http archive at: http://localhost:${server.address().port}`)
+  })
+  server.on('request', hyperHttp(archive))
 })
