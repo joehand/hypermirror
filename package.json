@@ -12,6 +12,7 @@
   "author": "Joe Hand <joe@joeahand.com> (http://joeahand.com/)",
   "license": "MIT",
   "dependencies": {
+    "dat-link-resolve": "^2.3.0",
     "debug": "^4.1.1",
     "hyperdiscovery": "^8.0.0",
     "hyperdrive": "^9.14.2",
