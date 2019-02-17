@@ -20,20 +20,27 @@ function mirror (link, opts, cb) {
   })
 
   function getArchive (key, cb) {
-    const archive = hyperdrive(db, key, { sparse: opts.sparse || true })
+    const archive = hyperdrive('./data', key, { sparse: opts.sparse })
     archive.on('ready', () => {
       if (opts.webrtc) {
         webRtcSwarm()
+        swarm(archive)
       } else {
         swarm(archive)
       }
 
-      archive.metadata.update(() => {
-        // why only work if webrtc connects fist?
-        if (opts.webrtc) swarm(archive)
-        cb(null, archive)
+      if (archive.content) return done()
+      archive.metadata.get(0, () => {
+        done()
       })
     })
+
+    function done () {
+      // why only work if webrtc connects fist?
+      archive.content.get(0, () => {
+        cb(null, archive)
+      })
+    }
 
     function webRtcSwarm () {
       const swarmKey = archive.discoveryKey.toString('hex').slice(40)

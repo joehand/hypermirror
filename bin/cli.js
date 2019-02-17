@@ -12,7 +12,7 @@ var argv = minimist(process.argv.slice(2), {
   },
   default: {
     webrtc: false,
-    sparse: true
+    sparse: false
   }
 })
 
@@ -32,6 +32,7 @@ if (argv.debug) {
   process.env.DEBUG = debugArgs
 }
 var debug = require('debug')('hypermirror') // require this after setting process.env.DEBUG
+debug('options', argv)
 
 mirror(argv.link, argv, function (err, archive) {
   if (err) return console.error(err)
@@ -39,7 +40,7 @@ mirror(argv.link, argv, function (err, archive) {
     if (err) return console.error(err)
     debug('dat.json:', data)
   })
-  console.log('mirroring archive', archive.key.toString('hex'))
+  console.log('mirroring archive:\n', 'dat://' + archive.key.toString('hex'))
 
   var server = http.createServer().listen(() => {
     console.log(`http archive at: http://localhost:${server.address().port}`)
