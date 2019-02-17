@@ -6,13 +6,15 @@ var hyperHttp = require('hyperdrive-http')
 var mirror = require('..')
 
 var argv = minimist(process.argv.slice(2), {
-  boolean: ['webrtc', 'sparse'],
+  boolean: ['webrtc', 'sparse', 'temp'],
   alias: {
-    webrtc: 'w'
+    webrtc: 'w',
+    temp: 'm'
   },
   default: {
     webrtc: false,
-    sparse: false
+    sparse: false,
+    temp: false
   }
 })
 

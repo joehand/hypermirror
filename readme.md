@@ -1,18 +1,11 @@
 # HyperMirror
 
-Mirror hypercore & hyperdrive feeds. 
+Mirrors hyperdrives locally with support for:
 
-Hypermirror mirror any type of hypercore or hyperdrive feed. It comes with electron-webrtc so you can mirror dat.land links or be a peer so dat.land users can access Dats shared with the CLI.
+* **WebRTC** - Allowing a node service to act as a gateway between Dat's p2p network and Web-based clients.
+* **http** - View files locally via http server, especially useful in sparse mode.
 
-## Example
-
-Let's say you want to mirror & backup a hyperdrive feed while also acting as a hybrid peer (node + webrtc for browsers). You would run:
-
-```
-hypermirror <dat-link> --dir=my_data --persist --webrtc
-```
-
-This will download the Dat, which includes all the files and a `.dat` folder, to the `my_data` folder. It will share the Dat via webrtc so users can access it on dat.land.
+ WebRTC,  Nice for testing!
 
 ## Install
 
@@ -24,13 +17,11 @@ npm install -g hypermirror
 
 `hypermirror <link>`
 
-Mirrors the hypercore or hyperdrive link. Minimal output right now.
-
 ### Options
 
 * `--webrtc` to mirror a Dat across Dat CLI and dat.land.
-* `--persist` or `-p` to persist hyperdrive database and files on the file system (currently only supported for hyperdrive feeds)
-* `--dir=/my_dir` to put files and `.dat` folder. Only works with `--persist` option (currently only supported for hyperdrive feeds)
+* `--sparse` to keep dat sparse, otherwise all data is downloaded.
+* `--temp` or `-m` to keep hyperdrives in memory, otherwise they are written to `<cwd>/hypermirror-data`
 
 Use `DEBUG=hypermirror` to view debug information.
 
@@ -46,17 +37,11 @@ Options can include:
 
 ```js
 {
-  persist: false, // persist the hyperdrive via dat-js
-  webrtc: false, // use electron-webrtc to share via webrtc
-  dir: process.cwd() // if persisted, where to download dat
+  temp: false, // keep in memory
+  webrtc: false, // use wrtc to share via webrtc
+  sparse: false // only download data as requested
 }
 ```
-
-### TODO:
-
-* Allow non-memory mirroring for hypercore
-* kept all chunks rather than latest, e.g. if it used a content addressable chunk store
-* Mirror many feeds with one process
 
 ## License
 

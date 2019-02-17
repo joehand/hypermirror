@@ -12,7 +12,7 @@ function mirror (link, opts, cb) {
   if (!cb) return mirror(link, {}, opts)
   if (!opts) opts = {}
 
-  const db = opts.db ? opts.db : require('random-access-memory') // todo: hookup opts.db
+  const db = opts.temp ? require('random-access-memory') : './hypermirror-data'
 
   getDatKey(link, (err, key) => {
     if (err) return cb(err)
@@ -20,7 +20,7 @@ function mirror (link, opts, cb) {
   })
 
   function getArchive (key, cb) {
-    const archive = hyperdrive('./data', key, { sparse: opts.sparse })
+    const archive = hyperdrive(db, key, { sparse: opts.sparse })
     archive.on('ready', () => {
       if (opts.webrtc) {
         webRtcSwarm()
